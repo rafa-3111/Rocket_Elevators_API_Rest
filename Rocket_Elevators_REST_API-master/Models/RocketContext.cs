@@ -23,6 +23,7 @@ namespace RocketApi.Models
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Elevators> Elevators { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Interventions> Interventions { get; set; }
         public virtual DbSet<Leads> Leads { get; set; }
         public virtual DbSet<Quotes> Quotes { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
@@ -604,7 +605,80 @@ namespace RocketApi.Models
                     .HasColumnName("user_id")
                     .HasColumnType("bigint(20)");
             });
+            modelBuilder.Entity<Interventions>(entity =>
+            {
+                entity.ToTable("interventions");
 
+                entity.HasIndex(e => e.AuthorId)
+                    .HasName("index_authorid_on_building_id");
+
+                entity.HasIndex(e => e.CustomerId)
+                    .HasName("index_customer_on_employee_id");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.BatteryId)
+                    .HasColumnName("battery_id")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ElevatorId)
+                    .HasColumnName("elevator_id")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.BuildingId)
+                    .HasColumnName("building_id")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.EmployeeId)
+                    .HasColumnName("employee_id")
+                    .HasColumnType("bigint(20)");
+
+                entity.Property(e => e.ColumnId)
+                    .HasColumnName("column_id")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnName("created_at")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Intervention_Start)
+                    .HasColumnName("intervention_start")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Intervention_Finish)
+                    .HasColumnName("intervention_finish")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Results)
+                    .HasColumnName("result")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Repport)
+                    .HasColumnName("repport")
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnName("updated_at")
+                    .HasColumnType("datetime");
+            });
             modelBuilder.Entity<Leads>(entity =>
             {
                 entity.ToTable("leads");
